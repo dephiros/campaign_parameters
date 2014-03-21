@@ -12,7 +12,12 @@ import java.net.URLDecoder;
  * Created by andy on 3/20/14.
  * http://stackoverflow.com/questions/10986320/android-app-a-wants-to-track-google-play-referral-data-for-android-app-b-install
  */
+
+
 public class ReferralReceiver extends BroadcastReceiver {
+
+    private static String CAMPAIGN_REF_PARA = "referral";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,7 +45,8 @@ public class ReferralReceiver extends BroadcastReceiver {
         try {    // Remove any url encoding
             referrer = URLDecoder.decode(referrer, "UTF-8"); //$NON-NLS-1$
         } catch (UnsupportedEncodingException e) { return; }
-
-        
+        Intent i = new Intent(context, Hello.class);
+        i.putExtra(CAMPAIGN_REF_PARA, referrer);
+        context.startActivity(i);
     }
 }
