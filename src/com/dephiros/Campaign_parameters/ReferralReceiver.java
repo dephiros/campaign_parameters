@@ -1,9 +1,13 @@
 package com.dephiros.Campaign_parameters;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -21,8 +25,10 @@ public class ReferralReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         // Workaround for Android security issue: http://code.google.com/p/android/issues/detail?id=16006
+        Toast.makeText(context, "Broadcast Intent Detected.",
+                Toast.LENGTH_LONG).show();
+        Log.v("log", "this is shown");
         try {
             final Bundle extras = intent.getExtras();
             if (extras != null) {
@@ -45,8 +51,8 @@ public class ReferralReceiver extends BroadcastReceiver {
         try {    // Remove any url encoding
             referrer = URLDecoder.decode(referrer, "UTF-8"); //$NON-NLS-1$
         } catch (UnsupportedEncodingException e) { return; }
-        Intent i = new Intent(context, Hello.class);
-        i.putExtra(CAMPAIGN_REF_PARA, referrer);
-        context.startActivity(i);
+
+        Hello hello = Hello.mthis;
+        if (hello != null) hello.setHelloText(referrer);
     }
 }

@@ -16,16 +16,16 @@ public class Hello extends Activity {
     private TextView hello = null;
     private static String CAMPAIGN_SOURCE_PARA = "utm_source";
     private static String CAMPAIGN_REF_PARA = "referral";
+    public static Hello mthis = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hello = (TextView) findViewById(R.id.hello);
-        Intent intent = this.getIntent();
-        String parameter = intent.getStringExtra(CAMPAIGN_REF_PARA);
-        if (parameter != null) {
-            hello.setText("hello" + parameter);
-        }
-
         setContentView(R.layout.main);
+        mthis = this;
+        hello = (TextView) findViewById(R.id.hello);
+    }
+
+    public void setHelloText(String text) {
+        hello.setText("hello" + text);
     }
 }
